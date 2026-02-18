@@ -193,10 +193,10 @@ export default function ServiceAttendancePage() {
       </div>
       <div className="mt-6 text-center">
         <Link
-          href="/admin"
+          href="/"
           className="text-sm text-gray-500 hover:text-gray-700"
         >
-          &larr; Back to Admin
+          &larr; Back to Home
         </Link>
       </div>
     </div>

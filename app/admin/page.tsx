@@ -286,8 +286,9 @@ export default function AdminDashboard() {
                       <p className="text-2xl font-bold">
                         {selectedService.kidsCount}
                       </p>
-                      <p className="text-sm text-gray-600">Kids</p>
+                      <p className="text-sm text-gray-600">kids</p>
                     </div>
+                  
                   </div>
                 </div>
               ) : (

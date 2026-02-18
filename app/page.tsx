@@ -68,14 +68,6 @@ export default function Home() {
           </div>
         )}
 
-        <div className="flex flex-col sm:flex-row gap-4 justify-center mt-8">
-          <Link
-            href="/admin"
-            className="text-red-600 hover:text-gray-900 font-medium"
-          >
-            Go to Admin Dashboard
-          </Link>
-        </div>
       </div>
     </div>
   );
