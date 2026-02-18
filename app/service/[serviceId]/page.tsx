@@ -6,7 +6,8 @@ import { useParams } from 'next/navigation';
 import { useState } from 'react';
 import { Id } from '../../../convex/_generated/dataModel';
 import Link from 'next/link';
-
+import Image from 'next/image';
+import Logo from '../../../public/church-bg.png';
 export default function ServiceAttendancePage() {
   const params = useParams();
   const serviceId = params.serviceId as Id<'services'>;
@@ -19,9 +20,10 @@ export default function ServiceAttendancePage() {
 
   const [formData, setFormData] = useState({
     name: '',
-    gender: 'male' as 'male' | 'female' | '',
+    gender: 'male' as 'male' | 'female' | 'kids' |'',
     email: '',
     phone: '',
+    prayerRequest: '',
   });
   const [submitted, setSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -49,9 +51,23 @@ export default function ServiceAttendancePage() {
 
   if (submitted) {
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center bg-green-50 p-6 text-center">
+      <div className="min-h-screen flex flex-col items-center justify-center p-6 text-center">
+        <div
+          className="absolute inset-0 opacity-4 -z-30 bg-cover bg-center"
+          style={{ backgroundImage: "url('/church-bg.png')" }}
+        />
+
+        <Link href="/" className="text-red-600 hover:text-gray-900">
+                <Image
+                 src={Logo} 
+                 width={80}
+                 height={80}
+                 alt="Church Logo" 
+                 className="mx-auto my-10" 
+                 />
+                </Link>
         <div className="bg-white p-8 rounded-xl shadow-lg max-w-md w-full">
-          <h2 className="text-3xl font-bold text-green-600 mb-4">Welcome!</h2>
+          <h2 className="text-3xl font-bold text-red-800 mb-4">Welcome!</h2>
           <p className="text-gray-700 text-lg mb-6">
             Thank you for checking in to the service.
           </p>
@@ -67,13 +83,17 @@ export default function ServiceAttendancePage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col items-center justify-center p-4">
+    <div className="min-h-screen flex flex-col items-center justify-center py-14">
+      <div
+        className="absolute inset-0 opacity-1 -z-30 bg-cover bg-center"
+        style={{ backgroundImage: "url('/church-bg.png')" }}
+      />
       <div className="max-w-md w-full bg-white rounded-xl shadow-lg overflow-hidden">
-        <div className="bg-blue-600 p-6 text-center">
-          <h1 className="text-2xl font-bold text-white">
+        <div className="bg-red-900 p-10 text-center">
+          <h1 className="text-3xl font-bold text-white">
             {service ? service.title : 'Service Check-in'}
           </h1>
-          <p className="text-blue-100 mt-2">
+          <p className="text-blue-100 mt-4">
             {service
               ? new Date(service.date).toDateString()
               : 'Please fill in your details'}
@@ -82,7 +102,7 @@ export default function ServiceAttendancePage() {
 
         <form onSubmit={handleSubmit} className="p-6 space-y-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block font-medium text-gray-700 mb-2">
               Full Name
             </label>
             <input
@@ -92,13 +112,13 @@ export default function ServiceAttendancePage() {
               onChange={(e) =>
                 setFormData({ ...formData, name: e.target.value })
               }
-              className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition"
+              className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-red-700 focus:border-red-100 outline-none transition"
               placeholder="John Doe"
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block font-medium text-gray-700 mb-2">
               Gender
             </label>
             <select
@@ -107,18 +127,19 @@ export default function ServiceAttendancePage() {
               onChange={(e) =>
                 setFormData({
                   ...formData,
-                  gender: e.target.value as 'male' | 'female',
+                  gender: e.target.value as 'male' | 'female' | 'kids' |'',
                 })
               }
-              className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition bg-white"
+              className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-red-700 focus:border-red-100 outline-none transition bg-white"
             >
               <option value="male">Male</option>
               <option value="female">Female</option>
+              <option value="kids">Kids</option>
             </select>
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block font-medium text-gray-700 mb-2">
               Email (Optional)
             </label>
             <input
@@ -127,14 +148,14 @@ export default function ServiceAttendancePage() {
               onChange={(e) =>
                 setFormData({ ...formData, email: e.target.value })
               }
-              className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition"
+              className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-red-700 focus:border-red-100 outline-none transition"
               placeholder="john@example.com"
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              Phone (Optional)
+            <label className="block font-medium text-gray-700 mb-2">
+              Phone
             </label>
             <input
               type="tel"
@@ -142,15 +163,29 @@ export default function ServiceAttendancePage() {
               onChange={(e) =>
                 setFormData({ ...formData, phone: e.target.value })
               }
-              className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition"
+              className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-red-700 focus:border-red-100 outline-none transition"
               placeholder="+1 234 567 8900"
+            />
+          </div>
+
+          <div>
+            <label className="block font-medium text-gray-700 mb-2">
+              Prayer Request
+            </label>
+            <textarea
+              value={formData.prayerRequest}
+              onChange={(e) =>
+                setFormData({ ...formData, prayerRequest: e.target.value })
+              }
+              className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-red-700 focus:border-red-100 outline-none transition"
+              placeholder="What you want God to do for you..."
             />
           </div>
 
           <button
             type="submit"
             disabled={isSubmitting}
-            className="w-full bg-blue-600 text-white font-bold py-3 rounded-lg hover:bg-blue-700 transition duration-300 shadow-md mt-6 disabled:bg-gray-400"
+            className="w-full bg-red-800 text-white font-bold py-3 rounded-lg hover:bg-red-900 transition duration-300 shadow-md mt-6 disabled:bg-red-400"
           >
             {isSubmitting ? 'Submitting...' : 'Check In'}
           </button>

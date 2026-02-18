@@ -4,9 +4,10 @@ import { v } from 'convex/values';
 export const add = mutation({
   args: {
     name: v.string(),
-    gender: v.union(v.literal('male'), v.literal('female')),
+    gender: v.union(v.literal('male'), v.literal('female'), v.literal('kids')),
     email: v.optional(v.string()),
     phone: v.optional(v.string()),
+    prayerRequest: v.optional(v.string()),
     serviceId: v.id('services'),
   },
   handler: async (ctx, args) => {

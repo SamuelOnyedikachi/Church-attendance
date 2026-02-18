@@ -4,7 +4,9 @@ import { useQuery } from 'convex/react';
 import { api } from '../convex/_generated/api';
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import Logo from '../public/church-bg.png';
 import QRCode from 'react-qr-code';
+import Image from 'next/image';
 
 export default function Home() {
   const services = useQuery(api.services.listServicesWithAttendance);
@@ -16,15 +18,28 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-gray-50 p-6">
+    <div className="min-h-screen flex flex-col items-center justify-center p-6">
+      <div
+        className="absolute inset-0 opacity-3 -z-30 bg-cover bg-center"
+        style={{ backgroundImage: "url('/church-bg.png')" }}
+      />
       <div className="max-w-lg w-full text-center space-y-8">
-        <h1 className="text-5xl font-extrabold text-gray-900 tracking-tight">
+        <Link href="/" className="text-red-600 hover:text-gray-900">
+        <Image
+         src={Logo} 
+         width={80}
+         height={80}
+         alt="Church Logo" 
+         className="mx-auto my-10" 
+         />
+        </Link>
+        <h1 className="text-5xl font-extrabold text-red-900 tracking-tight">
           Church Attendance
         </h1>
 
         {latestService ? (
           <div className="bg-white p-8 rounded-xl shadow-lg flex flex-col items-center w-full">
-            <h2 className="text-2xl font-bold mb-2 text-gray-800">
+            <h2 className="text-2xl font-bold mb-2 text-red-800">
               Scan to Check In
             </h2>
             <p className="text-gray-600 mb-6 font-medium">
@@ -56,7 +71,7 @@ export default function Home() {
         <div className="flex flex-col sm:flex-row gap-4 justify-center mt-8">
           <Link
             href="/admin"
-            className="text-blue-600 hover:underline font-medium"
+            className="text-red-600 hover:text-gray-900 font-medium"
           >
             Go to Admin Dashboard
           </Link>

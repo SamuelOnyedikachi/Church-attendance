@@ -41,6 +41,7 @@ export const listServicesWithAttendance = query({
           attendanceCount: attendance.length,
           maleCount: attendance.filter((a) => a.gender === 'male').length,
           femaleCount: attendance.filter((a) => a.gender === 'female').length,
+          kidsCount: attendance.filter((a) => a.gender === 'kids').length,
         };
       })
     );
