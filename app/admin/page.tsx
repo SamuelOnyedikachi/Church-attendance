@@ -9,7 +9,13 @@ import Link from 'next/link';
 const AttendanceChart = ({
   data,
 }: {
-  data: { date: string; total: number; male: number; female: number; kids:number; }[];
+  data: {
+    date: string;
+    total: number;
+    male: number;
+    female: number;
+    kids: number;
+  }[];
 }) => {
   if (!data || data.length === 0) {
     return (
@@ -288,7 +294,6 @@ export default function AdminDashboard() {
                       </p>
                       <p className="text-sm text-gray-600">kids</p>
                     </div>
-                  
                   </div>
                 </div>
               ) : (

@@ -1,17 +1,23 @@
 import { mutation } from './_generated/server';
 import { v } from 'convex/values';
 
-export const add = mutation({
+export const addAttendance = mutation({
   args: {
+    serviceId: v.id('services'),
     name: v.string(),
     gender: v.union(v.literal('male'), v.literal('female'), v.literal('kids')),
     email: v.optional(v.string()),
     phone: v.optional(v.string()),
     prayerRequest: v.optional(v.string()),
-    serviceId: v.id('services'),
   },
   handler: async (ctx, args) => {
-    const attendanceId = await ctx.db.insert('attendance', args);
-    return attendanceId;
+    await ctx.db.insert('attendance', {
+      name: args.name,
+      gender: args.gender,
+      email: args.email ?? '',
+      phone: args.phone ?? '',
+      prayerRequest: args.prayerRequest ?? '',
+      serviceId: args.serviceId,
+    });
   },
 });
