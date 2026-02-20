@@ -178,10 +178,10 @@ export default function AdminDashboard() {
       className="relative min-h-screen p-4 md:p-8"
       // style={{ backgroundImage: "url('/church-bg.png')" }}
     >
-      <div
+      {/* <div
         className="absolute inset-0 opacity-1 -z-30 bg-cover bg-center"
         style={{ backgroundImage: "url('/church-bg.png')" }}
-      />
+      /> */}
       <div className="max-w-7xl mx-auto space-y-8">
         <div className="flex justify-between p-5 items-center">
           <h1 className="text-3xl font-bold text-red-800">Admin Dashboard</h1>

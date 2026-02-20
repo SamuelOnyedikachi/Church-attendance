@@ -89,10 +89,10 @@ export default function ServicePage() {
   if (submitted) {
     return (
       <div className="min-h-screen flex flex-col items-center justify-center p-6 text-center">
-        <div
+        {/* <div
           className="absolute inset-0 opacity-4 -z-30 bg-cover bg-center"
           style={{ backgroundImage: "url('/church-bg.png')" }}
-        />
+        /> */}
 
         <Link href="/" className="text-red-600 hover:text-gray-900">
           <Image
@@ -104,7 +104,7 @@ export default function ServicePage() {
           />
         </Link>
         <div className="bg-white p-8 rounded-xl shadow-lg max-w-md w-full">
-          <h2 className="text-3xl font-bold text-red-800 mb-4">Welcome!</h2>
+          <h2 className="text-3xl font-bold text-red-800 mb-4">Welcome To Church!</h2>
           <p className="text-gray-700 text-lg mb-6">
             Thank you for checking in to the service.
           </p>
@@ -216,10 +216,10 @@ export default function ServicePage() {
     //       {/* You can add other fields like email, phone, etc. here */}
 
     <div className="min-h-screen flex flex-col items-center justify-center py-14">
-      <div
+      {/* <div
         className="absolute inset-0 opacity-5 -z-30 bg-cover bg-center"
         style={{ backgroundImage: "url('/church-bg.png')" }}
-      />
+      /> */}
       <div className="max-w-xl w-full bg-white rounded-xl shadow-lg overflow-hidden">
         <div className="bg-red-900 p-10 text-center">
           <h1 className="text-3xl font-bold text-white">

@@ -4,6 +4,8 @@ import './globals.css';
 import ConvexClientProvider from './ConvexClientProvider';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Footer from './Footer';
+
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -20,6 +22,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className} suppressHydrationWarning>
+        <div
+          className="absolute inset-0 opacity-4 -z-30 bg-cover bg-center"
+          style={{ backgroundImage: "url('/church-bg.png')" }}
+        />
+        
         <ConvexClientProvider>{children}</ConvexClientProvider>
         <ToastContainer
           position="top-right"
@@ -33,6 +40,7 @@ export default function RootLayout({
           pauseOnHover
         />
       </body>
+      <Footer />
     </html>
   );
 }

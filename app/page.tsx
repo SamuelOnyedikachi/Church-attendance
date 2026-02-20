@@ -45,10 +45,10 @@ export default function Home() {
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center p-6">
-      <div
+      {/* <div
         className="absolute inset-0 opacity-3 -z-30 bg-cover bg-center"
         style={{ backgroundImage: "url('/church-bg.png')" }}
-      />
+      /> */}
       <div className="max-w-lg w-full text-center space-y-8">
         <Link href="/" className="text-red-600 hover:text-gray-900">
           <Image
