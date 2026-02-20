@@ -5,7 +5,11 @@ export const addAttendance = mutation({
   args: {
     serviceId: v.id('services'),
     name: v.string(),
-    gender: v.union(v.literal('male'), v.literal('female'), v.literal('kids')),
+    category: v.union(
+      v.literal('male'),
+      v.literal('female'),
+      v.literal('kids')
+    ),
     email: v.optional(v.string()),
     phone: v.optional(v.string()),
     prayerRequest: v.optional(v.string()),
@@ -13,7 +17,7 @@ export const addAttendance = mutation({
   handler: async (ctx, args) => {
     await ctx.db.insert('attendance', {
       name: args.name,
-      gender: args.gender,
+      category: args.category,
       email: args.email ?? '',
       phone: args.phone ?? '',
       prayerRequest: args.prayerRequest ?? '',

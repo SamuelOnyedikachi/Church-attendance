@@ -8,7 +8,7 @@ import { Id } from '../../../convex/_generated/dataModel';
 import Link from 'next/link';
 import Image from 'next/image';
 import Logo from '../../../public/church-bg.png';
-
+import { toast } from 'react-toastify';
 
 export default function ServicePage() {
   const params = useParams();
@@ -17,8 +17,8 @@ export default function ServicePage() {
   const addAttendance = useMutation(api.attendance.addAttendance);
 
   const [formData, setFormData] = useState({
-    name: '', 
-    gender: '',
+    name: '',
+    category: '',
     email: '',
     phone: '',
     prayerRequest: '',
@@ -37,21 +37,23 @@ export default function ServicePage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!formData.gender) {
-      alert('Please select a gender.');
+    if (!formData.category) {
+      toast.error('Please select a category.');
       return;
     }
     setIsSubmitting(true);
     try {
       await addAttendance({
         ...formData,
-        gender: formData.gender as 'male' | 'female' | 'kids',
+        category: formData.category as 'male' | 'female' | 'kids',
         serviceId,
       });
       setSubmitted(true);
     } catch (error) {
       console.error('Failed to submit attendance', error);
-      alert('There was an error submitting your attendance. Please try again.');
+      toast.error(
+        'There was an error submitting your attendance. Please try again.'
+      );
     } finally {
       setIsSubmitting(false);
     }
@@ -73,11 +75,16 @@ export default function ServicePage() {
     );
   }
 
-    const resetForm = () => {
-      setSubmitted(false);
-      setFormData({ name: '', gender: 'male', email: '', phone: '', prayerRequest: '' });
-    };
-
+  const resetForm = () => {
+    setSubmitted(false);
+    setFormData({
+      name: '',
+      category: 'male',
+      email: '',
+      phone: '',
+      prayerRequest: '',
+    });
+  };
 
   if (submitted) {
     return (
@@ -247,19 +254,20 @@ export default function ServicePage() {
 
           <div>
             <label className="block font-medium text-gray-700 mb-2">
-              Gender
+              Category
             </label>
             <select
               required
-              value={formData.gender}
+              value={formData.category}
               onChange={(e) =>
                 setFormData({
                   ...formData,
-                  gender: e.target.value as 'male' | 'female' | 'kids' | '',
+                  category: e.target.value as 'male' | 'female' | 'kids' | '',
                 })
               }
               className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-red-700 focus:border-red-100 outline-none transition bg-white"
             >
+              <option value="">Select a category</option>
               <option value="male">Male</option>
               <option value="female">Female</option>
               <option value="kids">Kids</option>

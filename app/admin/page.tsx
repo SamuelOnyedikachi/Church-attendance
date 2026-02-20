@@ -4,6 +4,7 @@ import { useMutation, useQuery } from 'convex/react';
 import { api } from '../../convex/_generated/api';
 import { useState, useMemo } from 'react';
 import Link from 'next/link';
+import { toast } from 'react-toastify';
 
 // A simple chart component placeholder
 const AttendanceChart = ({
@@ -151,7 +152,7 @@ export default function AdminDashboard() {
   const handleCreateService = async (e: React.FormEvent) => {
     e.preventDefault();
     await createService({ title: newServiceTitle, date: newServiceDate });
-    alert('Service created successfully!');
+    toast.success('Service created successfully!');
   };
 
   const selectedService = useMemo(() => {

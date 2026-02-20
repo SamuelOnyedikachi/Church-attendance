@@ -17,7 +17,12 @@ export default defineSchema({
 
   attendance: defineTable({
     name: v.string(),
-    gender: v.union(v.literal('male'), v.literal('female'), v.literal('kids')),
+    category: v.optional(
+      v.union(v.literal('male'), v.literal('female'), v.literal('kids'))
+    ),
+    // gender: v.optional(
+    //   v.union(v.literal('male'), v.literal('female'), v.literal('kids'))
+    // ),
     email: v.optional(v.string()),
     phone: v.optional(v.string()),
     prayerRequest: v.optional(v.string()),
