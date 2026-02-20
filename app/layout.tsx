@@ -8,7 +8,7 @@ import 'react-toastify/dist/ReactToastify.css';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: 'Church Attendance',
+  title: 'RYTHMN 5FELLOWSHIP UGH',
   description: 'Church Attendance Management',
 };
 
