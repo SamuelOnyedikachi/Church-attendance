@@ -136,25 +136,25 @@ export default function ServicePage() {
     //         <label
     //           htmlFor="name"
     //           className="block text-sm font-medium text-gray-700"
+    //       <label
+    //           htmlFor="category"
+    //           className="block text-sm font-medium text-gray-700"
     //         >
-    //           Full Name
+    //           Category
     //         </label>
-    //         <input
-    //           type="text"
-    //           name="name"
-    //           id="name"
-    //           value={formData.name}
+    //         <select
+    //           name="category"
+    //           id="category"
+    //           value={formData.category}
     //           onChange={handleChange}
     //           className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
     //           required
-    //         />
-    //       </div>
-    //       <div>
-    //         <label
-    //           htmlFor="gender"
-    //           className="block text-sm font-medium text-gray-700"
     //         >
-    //           Gender
+    //           <option value="">Select Category</option>
+    //           <option value="male">Male</option>
+    //           <option value="female">Female</option>
+    //           <option value="kids">Kids</option>
+    //         </select>
     //         </label>
     //         <select
     //           name="gender"

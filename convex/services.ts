@@ -10,6 +10,7 @@ export const createService = mutation({
     const serviceId = await ctx.db.insert('services', {
       title: args.title,
       date: args.date,
+      createdAt: Date.now(),
     });
     return serviceId;
   },
@@ -30,20 +31,32 @@ export const listServicesWithAttendance = query({
       .order('desc')
       .collect();
 
+    const now = Date.now();
+    const twelveHoursMs = 12 * 60 * 60 * 1000;
+
     return Promise.all(
-      services.map(async (service) => {
-        const attendance = await ctx.db
-          .query('attendance')
-          .withIndex('by_serviceId', (q) => q.eq('serviceId', service._id))
-          .collect();
-        return {
-          ...service,
-          attendanceCount: attendance.length,
-          maleCount: attendance.filter((a) => a.category === 'male').length,
-          femaleCount: attendance.filter((a) => a.category === 'female').length,
-          kidsCount: attendance.filter((a) => a.category === 'kids').length,
-        };
-      })
+      services
+        .filter(
+          (service) =>
+            typeof service.createdAt === 'number' &&
+            now - service.createdAt < twelveHoursMs
+        )
+        .map(async (service) => {
+          const createdAt = service.createdAt as number;
+          const attendance = await ctx.db
+            .query('attendance')
+            .withIndex('by_serviceId', (q) => q.eq('serviceId', service._id))
+            .collect();
+          return {
+            ...service,
+            expiresAt: createdAt + twelveHoursMs,
+            attendanceCount: attendance.length,
+            maleCount: attendance.filter((a) => a.category === 'male').length,
+            femaleCount: attendance.filter((a) => a.category === 'female')
+              .length,
+            kidsCount: attendance.filter((a) => a.category === 'kids').length,
+          };
+        })
     );
   },
 });

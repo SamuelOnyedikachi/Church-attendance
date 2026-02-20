@@ -12,10 +12,36 @@ export default function Home() {
   const services = useQuery(api.services.listServicesWithAttendance);
   const latestService = services?.[0];
   const [origin, setOrigin] = useState('');
+  const [timeRemaining, setTimeRemaining] = useState('');
 
   useEffect(() => {
     setOrigin(window.location.origin);
   }, []);
+
+  // Update expiration time remaining every second
+  useEffect(() => {
+    if (!latestService?.expiresAt) return;
+
+    const updateTimer = () => {
+      const now = Date.now();
+      const remaining = latestService.expiresAt - now;
+
+      if (remaining <= 0) {
+        setTimeRemaining('Expired');
+      } else {
+        const hours = Math.floor(remaining / (1000 * 60 * 60));
+        const minutes = Math.floor(
+          (remaining % (1000 * 60 * 60)) / (1000 * 60)
+        );
+        const seconds = Math.floor((remaining % (1000 * 60)) / 1000);
+        setTimeRemaining(`${hours}h ${minutes}m ${seconds}s`);
+      }
+    };
+
+    updateTimer();
+    const interval = setInterval(updateTimer, 1000);
+    return () => clearInterval(interval);
+  }, [latestService?.expiresAt]);
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center p-6">
@@ -25,13 +51,13 @@ export default function Home() {
       />
       <div className="max-w-lg w-full text-center space-y-8">
         <Link href="/" className="text-red-600 hover:text-gray-900">
-        <Image
-         src={Logo} 
-         width={80}
-         height={80}
-         alt="Church Logo" 
-         className="mx-auto my-10" 
-         />
+          <Image
+            src={Logo}
+            width={80}
+            height={80}
+            alt="Church Logo"
+            className="mx-auto my-10"
+          />
         </Link>
         <h1 className="text-5xl font-extrabold text-red-900 tracking-tight">
           Church Attendance
@@ -42,8 +68,17 @@ export default function Home() {
             <h2 className="text-2xl font-bold mb-2 text-red-800">
               Scan to Check In
             </h2>
-            <p className="text-gray-600 mb-6 font-medium">
+            <p className="text-gray-600 mb-2 font-medium">
               {latestService.title} &bull; {latestService.date}
+            </p>
+            <p
+              className={`text-sm font-semibold mb-6 px-3 py-1 rounded ${
+                timeRemaining === 'Expired'
+                  ? 'text-red-600 bg-red-100'
+                  : 'text-green-600 bg-green-100'
+              }`}
+            >
+              Expires in: {timeRemaining}
             </p>
             <div className="p-4 bg-white border-2 border-gray-900 rounded-lg">
               {origin && (
