@@ -250,9 +250,16 @@ export default function AdminDashboard() {
                     href={`/service/${service._id}`}
                     target="_blank"
                     onClick={(e) => e.stopPropagation()}
-                    className="text-xs text-red-600 hover:underline mt-2 inline-block"
+                    className="text-xs text-red-600 hover:text-green-600 mt-2 inline-block"
                   >
                     Open Check-in Form
+                  </Link>
+                  <Link
+                    href={`/admin/attendance/${service._id}`}
+                    className="text-xs text-red-600 hover:text-green-600 mt-2 inline-block ml-4"
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    View Attendance
                   </Link>
                 </div>
               ))}

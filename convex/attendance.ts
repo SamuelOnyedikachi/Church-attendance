@@ -1,6 +1,6 @@
 import { mutation } from './_generated/server';
 import { v } from 'convex/values';
-
+import { query } from './_generated/server';
 export const addAttendance = mutation({
   args: {
     serviceId: v.id('services'),
@@ -23,5 +23,17 @@ export const addAttendance = mutation({
       prayerRequest: args.prayerRequest ?? '',
       serviceId: args.serviceId,
     });
+  },
+});
+
+export const getAttendanceByService = query({
+  args: {
+    serviceId: v.id('services'),
+  },
+  handler: async (ctx, args) => {
+    return await ctx.db
+    .query('attendance')
+    .filter((q) =>q.eq(q.field('serviceId'), args.serviceId))
+    .collect();
   },
 });
