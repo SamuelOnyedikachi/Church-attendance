@@ -234,7 +234,7 @@ export default function AdminDashboard() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           <div className="lg:col-span-1 bg-red-50 p-6 rounded-lg shadow-md">
             <h2 className="text-xl font-semibold mb-4">Services</h2>
-            <div className="space-y-2 max-h-96 overflow-y-auto">
+            <div className="space-y-2 max-h-screen overflow-hidden">
               {services?.map((service) => (
                 <div
                   key={service._id}

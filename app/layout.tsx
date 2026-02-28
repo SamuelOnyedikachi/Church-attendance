@@ -6,7 +6,6 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Footer from './Footer';
 
-
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
@@ -26,7 +25,7 @@ export default function RootLayout({
           className="absolute inset-0 opacity-4 -z-30 bg-cover bg-center"
           style={{ backgroundImage: "url('/church-bg.png')" }}
         />
-        
+
         <ConvexClientProvider>{children}</ConvexClientProvider>
         <ToastContainer
           position="top-right"
@@ -39,8 +38,8 @@ export default function RootLayout({
           draggable
           pauseOnHover
         />
+        <Footer />
       </body>
-      <Footer />
     </html>
   );
 }
