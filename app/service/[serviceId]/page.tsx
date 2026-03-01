@@ -31,10 +31,17 @@ useEffect(() => {
 }, [service?.expiresAt]);
 
   const isExpired = timeLeft === 0;
+
+  const hours =
+  timeLeft && timeLeft > 0
+  ? Math.floor(timeLeft / (1000 * 60 * 60))
+  : 0;
+
   const minutes =
   timeLeft && timeLeft > 0
   ? Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60))
   : 0;
+
   const seconds =
   timeLeft && timeLeft > 0
   ? Math.floor((timeLeft % (1000 * 60)) / 1000)
@@ -192,7 +199,7 @@ useEffect(() => {
                 isExpired ? 'text-red-300' : 'text-green-300'}`}>
               {isExpired
                  ? 'Check-in Closed' 
-                 : `Form closes in : ${minutes}m ${seconds}s`}
+                 : `Form closes in : ${hours}h ${minutes}m ${seconds}s`}
             </p>
           )}
         </div>
