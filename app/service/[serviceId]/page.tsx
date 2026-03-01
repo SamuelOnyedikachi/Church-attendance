@@ -17,22 +17,21 @@ export default function ServicePage() {
   const [timeLeft, setTimeLeft] = useState<number | null>(null);
   const addAttendance = useMutation(api.attendance.addAttendance);
 
-  useEffect(() => {
-    if (!service?.expiresAt) return;
+useEffect(() => {
+  if (!service?.expiresAt) return;
 
-    const updateTimeLeft = () => {
-      const interval = service.expiresAt - Date.now();
-      setTimeLeft(interval > 0 ? interval : 0);
-    };
+  const updateTimer = () => {
+    const remaining = service.expiresAt - Date.now();
+    setTimeLeft(remaining > 0 ? remaining : 0);
+  };
 
-    updateTimer();
-    const interval = setInterval(updateTimer, 1000);
-    return () => clearInterval(interval);
-    }, [service?.expiresAt]);
-  }
+  updateTimer();
+  const interval = setInterval(updateTimer, 1000);
+  return () => clearInterval(interval);
+}, [service?.expiresAt]);
 
   const isExpired = timeLeft === 0;
-  const minites =
+  const minutes =
   timeLeft && timeLeft > 0
   ? Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60))
   : 0;
