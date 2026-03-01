@@ -21,6 +21,9 @@ export default defineSchema({
     category: v.optional(
       v.union(v.literal('male'), v.literal('female'), v.literal('kids'))
     ),
+    firstTimer: v.optional(
+      v.union(v.literal('Yes'), v.literal('No'))
+    ),
     // (replaced legacy `gender` with `category`)
     email: v.optional(v.string()),
     phone: v.optional(v.string()),

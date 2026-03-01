@@ -31,6 +31,7 @@ export default function AttendancePage() {
       Category: a.category,
       Email: a.email,
       Phone: a.phone,
+      FirstTimer: a.firstTimer,
       PrayerRequest: a.prayerRequest,
       Time: new Date(a._creationTime).toLocaleString(),
     }));
@@ -79,6 +80,7 @@ export default function AttendancePage() {
                 <th className="border p-2">Category</th>
                 <th className="border p-2">Email</th>
                 <th className="border p-2">Phone</th>
+                <th className="border p-2">First Timer</th>
                 <th className="border p-2">Prayer Request</th>
                 <th className="border p-2">Time</th>
               </tr>
@@ -90,6 +92,7 @@ export default function AttendancePage() {
                   <td className="border p-2">{a.category}</td>
                   <td className="border p-2">{a.email}</td>
                   <td className="border p-2">{a.phone}</td>
+                  <td className="border p-2">{a.firstTimer}</td>
                   <td className="border p-2">{a.prayerRequest}</td>
                   <td className="border p-2">
                     {new Date(a._creationTime).toLocaleString()}

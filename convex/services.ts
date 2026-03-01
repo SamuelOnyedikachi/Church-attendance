@@ -19,7 +19,14 @@ export const createService = mutation({
 export const getService = query({
   args: { id: v.id('services') },
   handler: async (ctx, args) => {
-    return await ctx.db.get(args.id);
+const service = await ctx.db.get(args.id);
+if (!service) return null;
+const twelveHoursMs = 12 * 60 * 60 * 1000;
+const expiresAt = (service.createdAt as number) + twelveHoursMs;
+return {
+  ...service,
+  expiresAt,
+};
   },
 });
 
@@ -31,7 +38,7 @@ export const listServicesWithAttendance = query({
       .order('desc')
       .collect();
 
-    const now = Date.now();
+    // const now = Date.now();
     const twelveHoursMs = 12 * 60 * 60 * 1000;
 
     return Promise.all(

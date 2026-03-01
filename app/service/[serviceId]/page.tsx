@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useParams } from 'next/navigation';
 import { useMutation, useQuery } from 'convex/react';
 import { api } from '../../../convex/_generated/api';
@@ -14,13 +14,39 @@ export default function ServicePage() {
   const params = useParams();
   const serviceId = params.serviceId as Id<'services'>;
   const service = useQuery(api.services.getService, { id: serviceId });
+  const [timeLeft, setTimeLeft] = useState<number | null>(null);
   const addAttendance = useMutation(api.attendance.addAttendance);
+
+  useEffect(() => {
+    if (!service?.expiresAt) return;
+
+    const updateTimeLeft = () => {
+      const interval = service.expiresAt - Date.now();
+      setTimeLeft(interval > 0 ? interval : 0);
+    };
+
+    updateTimer();
+    const interval = setInterval(updateTimer, 1000);
+    return () => clearInterval(interval);
+    }, [service?.expiresAt]);
+  }
+
+  const isExpired = timeLeft === 0;
+  const minites =
+  timeLeft && timeLeft > 0
+  ? Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60))
+  : 0;
+  const seconds =
+  timeLeft && timeLeft > 0
+  ? Math.floor((timeLeft % (1000 * 60)) / 1000)
+  : 0;
 
   const [formData, setFormData] = useState({
     name: '',
     category: '',
     email: '',
     phone: '',
+    firstTimer: '',
     prayerRequest: '',
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -41,10 +67,16 @@ export default function ServicePage() {
       toast.error('Please select a category.');
       return;
     }
+    if (!formData.firstTimer) {
+      toast.error('Please select Status');
+      return;
+    }
+
     setIsSubmitting(true);
     try {
       await addAttendance({
         ...formData,
+        firstTimer: formData.firstTimer as 'Yes' | 'No',
         category: formData.category as 'male' | 'female' | 'kids',
         serviceId,
       });
@@ -82,6 +114,7 @@ export default function ServicePage() {
       category: 'male',
       email: '',
       phone: '',
+      firstTimer: '',
       prayerRequest: '',
     });
   };
@@ -119,101 +152,22 @@ export default function ServicePage() {
     );
   }
 
+  if (isExpired) {
+    return (
+      <div className="min-h-screen flex items-center justify-center p-6 text-center">
+        <div className="bg-white p-8 rounded-xl shadow-lg max-w-md w-full">
+          <h2 className="text-2xl font-bold text-red-700 mb-4">
+            Check-in Closed
+            </h2>
+          <p className="text-gray-600">
+            The check-in form for this service has expired.
+          </p>
+        </div>
+      </div>
+    );
+  }
+
   return (
-    // <div className="min-h-screen flex flex-col items-center justify-center p-6">
-    //   <div
-    //     className="absolute inset-0 opacity-5 -z-30 bg-cover bg-center"
-    //     style={{ backgroundImage: "url('/church-bg.png')" }}
-    //   />
-    //   <div className="max-w-2xl w-full bg-white rounded-xl shadow-lg">
-    //     <div className="text-center bg-red-900 rounded-t-xl p-20 mb-8">
-    //       <h1 className="text-3xl font-bold text-white">{service.title}</h1>
-    //       <p className="text-white">{service.date}</p>
-    //       <p className="mt-2 text-lg text-gray-500">Welcome! Please check in.</p>
-    //     </div>
-    //     <form onSubmit={handleSubmit} className="space-y-6">
-    //       <div>
-    //         <label
-    //           htmlFor="name"
-    //           className="block text-sm font-medium text-gray-700"
-    //       <label
-    //           htmlFor="category"
-    //           className="block text-sm font-medium text-gray-700"
-    //         >
-    //           Category
-    //         </label>
-    //         <select
-    //           name="category"
-    //           id="category"
-    //           value={formData.category}
-    //           onChange={handleChange}
-    //           className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-    //           required
-    //         >
-    //           <option value="">Select Category</option>
-    //           <option value="male">Male</option>
-    //           <option value="female">Female</option>
-    //           <option value="kids">Kids</option>
-    //         </select>
-    //         </label>
-    //         <select
-    //           name="gender"
-    //           id="gender"
-    //           value={formData.gender}
-    //           onChange={handleChange}
-    //           className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-    //           required
-    //         >
-    //           <option value="">Select Gender</option>
-    //           <option value="male">Male</option>
-    //           <option value="female">Female</option>
-    //           <option value="kids">Kids</option>
-    //         </select>
-    //       </div>
-
-    //       <div>
-    //         <label className="block font-medium text-gray-700 mb-2">
-    //           Email (Optional)
-    //         </label>
-    //         <input
-    //           type="email"
-    //           value={formData.email}
-    //           onChange={(e) =>
-    //             setFormData({ ...formData, email: e.target.value })
-    //           }
-    //           className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-red-700 focus:border-red-100 outline-none transition"
-    //           placeholder="john@example.com"
-    //         />
-    //       </div>
-
-    //       <div>
-    //         <label className="block font-medium text-gray-700 mb-2">
-    //           Phone
-    //         </label>
-    //         <input
-    //           type="tel"
-    //           value={formData.phone}
-    //           onChange={(e) =>
-    //             setFormData({ ...formData, phone: e.target.value })
-    //           }
-    //           className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-red-700 focus:border-red-100 outline-none transition"
-    //           placeholder="+1 234 567 8900"
-    //         />
-    //       </div>
-
-    //         <label className="block font-medium text-gray-700 mb-2">
-    //           Prayer Request
-    //         </label>
-    //         <textarea
-    //           value={formData.prayerRequest}
-    //           onChange={(e) =>
-    //             setFormData({ ...formData, prayerRequest: e.target.value })
-    //           }
-    //           className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-red-700 focus:border-red-100 outline-none transition"
-    //           placeholder="What you want God to do for you..."
-    //         />
-
-    //       {/* You can add other fields like email, phone, etc. here */}
 
     <div className="min-h-screen flex flex-col items-center justify-center py-14">
       {/* <div
@@ -233,6 +187,15 @@ export default function ServicePage() {
           <p className="mt-2 text-lg text-gray-100">
             Welcome! Please check in.
           </p>
+          {timeLeft != null && (
+            <p
+              className={`mt-3 font-semibold  ${
+                isExpired ? 'text-red-300' : 'text-green-300'}`}>
+              {isExpired
+                 ? 'Check-in Closed' 
+                 : `Form closes in : ${minutes}m ${seconds}s`}
+            </p>
+          )}
         </div>
 
         <form onSubmit={handleSubmit} className="p-6 space-y-4">
@@ -306,6 +269,27 @@ export default function ServicePage() {
 
           <div>
             <label className="block font-medium text-gray-700 mb-2">
+              First Time in church?
+            </label>
+            <select
+              required
+              value={formData.firstTimer}
+              onChange={(e) =>
+                setFormData({
+                  ...formData,
+                  firstTimer: e.target.value as 'Yes' | 'No' | '',
+                })
+              }
+              className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-red-700 focus:border-red-100 outline-none transition bg-white"
+            >
+              <option value="">If you are a first timer</option>
+              <option value="Yes">Yes</option>
+              <option value="No">No</option>
+            </select>
+          </div>
+
+          <div>
+            <label className="block font-medium text-gray-700 mb-2">
               Prayer Request
             </label>
             <textarea
@@ -320,7 +304,7 @@ export default function ServicePage() {
 
           <button
             type="submit"
-            disabled={isSubmitting}
+            disabled={isSubmitting || isExpired}
             className="w-full flex justify-center py-4 px-4 border border-transparent rounded-md shadow-sm text-md font-medium text-white bg-red-900 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 disabled:bg-red-400"
           >
             {isSubmitting ? 'Submitting...' : 'Submit Attendance'}

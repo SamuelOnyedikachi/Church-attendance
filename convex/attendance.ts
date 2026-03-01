@@ -10,6 +10,10 @@ export const addAttendance = mutation({
       v.literal('female'),
       v.literal('kids')
     ),
+    firstTimer: v.union(
+      v.literal('Yes'),
+      v.literal('No'),
+    ),
     email: v.optional(v.string()),
     phone: v.optional(v.string()),
     prayerRequest: v.optional(v.string()),
@@ -20,6 +24,7 @@ export const addAttendance = mutation({
       category: args.category,
       email: args.email ?? '',
       phone: args.phone ?? '',
+      firstTimer: args.firstTimer,
       prayerRequest: args.prayerRequest ?? '',
       serviceId: args.serviceId,
     });
