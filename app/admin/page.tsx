@@ -234,8 +234,8 @@ export default function AdminDashboard() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           <div className="lg:col-span-1 bg-red-50 p-6 rounded-lg shadow-md">
             <h2 className="text-xl font-semibold mb-4">Services</h2>
-            <div className="space-y-2 max-h-screen overflow-hidden">
-              {services?.map((service) => (
+            <div className="space-y-3">
+              {services?.slice(0, 3).map((service) => (
                 <div
                   key={service._id}
                   onClick={() => setSelectedServiceId(service._id)}
@@ -250,19 +250,31 @@ export default function AdminDashboard() {
                     href={`/service/${service._id}`}
                     target="_blank"
                     onClick={(e) => e.stopPropagation()}
-                    className="text-xs text-red-600 hover:text-green-800 mt-2 inline-block"
+                    className="text-sm  text-red-600 hover:text-green-800 mt-2 inline-block"
                   >
                     Open Check-in Form
                   </Link>
                   <Link
                     href={`/admin/attendance/${service._id}`}
-                    className="text-xs text-red-600 hover:text-green-800 mt-2 inline-block ml-4"
+                    className="text-sm text-red-600 hover:text-green-800 mt-2 inline-block ml-4"
                     onClick={(e) => e.stopPropagation()}
                   >
                     View Attendance
                   </Link>
                 </div>
               ))}
+
+              {services && services.length > 3 && (
+                <div className="text-center mt-14">
+                  <Link
+                    href="/admin/services"
+                    className="text-sm bg-red-800 text-white px-4 py-2 rounded-md hover:bg-red-700 transition"
+                  >
+                    View All Services
+                  </Link>
+                </div>
+              )}
+
               {(!services || services.length === 0) && (
                 <p className="text-gray-500">No services found.</p>
               )}

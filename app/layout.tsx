@@ -20,13 +20,13 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className} suppressHydrationWarning>
+      <body className={`${inter.className} flex flex-col min-h-screen`} suppressHydrationWarning>
         <div
           className="absolute inset-0 opacity-4 -z-30 bg-cover bg-center"
           style={{ backgroundImage: "url('/church-bg.png')" }}
         />
 
-        <ConvexClientProvider>{children}</ConvexClientProvider>
+        <div className='flex-1'><ConvexClientProvider>{children}</ConvexClientProvider></div>
         <ToastContainer
           position="top-right"
           autoClose={5000}

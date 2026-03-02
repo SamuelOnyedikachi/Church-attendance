@@ -21,8 +21,8 @@ export const getService = query({
   handler: async (ctx, args) => {
 const service = await ctx.db.get(args.id);
 if (!service) return null;
-const twelveHoursMs = 12 * 60 * 60 * 1000;
-const expiresAt = (service.createdAt as number) + twelveHoursMs;
+const fiveHoursMs = 5 * 60 * 60 * 1000;
+const expiresAt = (service.createdAt as number) + fiveHoursMs;
 return {
   ...service,
   expiresAt,
@@ -39,7 +39,7 @@ export const listServicesWithAttendance = query({
       .collect();
 
     // const now = Date.now();
-    const twelveHoursMs = 12 * 60 * 60 * 1000;
+    const fiveHoursMs = 5 * 60 * 60 * 1000;
 
     return Promise.all(
       services.map(async (service) => {
@@ -50,7 +50,7 @@ export const listServicesWithAttendance = query({
           .collect();
         return {
           ...service,
-          expiresAt: createdAt + twelveHoursMs,
+          expiresAt: createdAt + fiveHoursMs,
           attendanceCount: attendance.length,
           maleCount: attendance.filter((a) => a.category === 'male').length,
           femaleCount: attendance.filter((a) => a.category === 'female').length,
