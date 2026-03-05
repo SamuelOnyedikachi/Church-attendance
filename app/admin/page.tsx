@@ -89,7 +89,7 @@ const AttendanceChart = ({
             />
             <polyline
               fill="none"
-              stroke="#00ff00"
+              stroke="#ff0000"
               strokeWidth="2"
               points={makePath('kids')}
             />
@@ -100,7 +100,7 @@ const AttendanceChart = ({
                 <circle cx={getX(i)} cy={getY(d.total)} r="4" fill="#3b82f6" />
                 <circle cx={getX(i)} cy={getY(d.male)} r="3" fill="#22c55e" />
                 <circle cx={getX(i)} cy={getY(d.female)} r="3" fill="#ec4899" />
-                <circle cx={getX(i)} cy={getY(d.kids)} r="3" fill="#00ff00" />
+                <circle cx={getX(i)} cy={getY(d.kids)} r="3" fill="#ff0000" />
 
                 <text
                   x={getX(i)}
