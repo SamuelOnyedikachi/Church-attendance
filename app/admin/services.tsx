@@ -1,2 +1,1 @@
-'use client'
-import { useState } from 'react';
+export { default } from './services/page';

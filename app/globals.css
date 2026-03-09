@@ -1,1 +1,154 @@
 @import 'tailwindcss';
+
+@layer base {
+  @keyframes logo-loader-zoom {
+    0%,
+    100% {
+      transform: scale(0.96);
+    }
+
+    50% {
+      transform: scale(1.08);
+    }
+  }
+
+  body {
+    @apply bg-white/80 text-gray-950;
+  }
+
+  .admin-shell {
+    @apply text-[15px] sm:text-base;
+  }
+
+  .admin-shell input,
+  .admin-shell select,
+  .admin-shell textarea,
+  .admin-shell table {
+    @apply text-gray-900;
+  }
+
+  .admin-shell input,
+  .admin-shell select,
+  .admin-shell textarea {
+    @apply bg-white;
+  }
+
+  .logo-loader {
+    animation: logo-loader-zoom 1.35s ease-in-out infinite;
+    filter: drop-shadow(0 14px 30px rgba(127, 29, 29, 0.22));
+  }
+}
+
+@layer components {
+  .page-shell {
+    @apply mx-auto w-full max-w-7xl space-y-6 sm:space-y-8;
+  }
+
+  .page-header {
+    @apply flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between;
+  }
+
+  .page-title {
+    @apply text-[1.75rem] font-bold tracking-tight text-red-900 sm:text-[2.05rem];
+  }
+
+  .page-description {
+    @apply max-w-3xl text-base leading-7 text-gray-600 sm:text-lg;
+  }
+
+  .surface-card {
+    @apply rounded-2xl border border-gray-200 bg-white/92 p-4 shadow-sm backdrop-blur-sm sm:p-6;
+  }
+
+  .surface-card-muted {
+    @apply rounded-2xl border border-red-100 bg-red-50/75 p-4 shadow-sm backdrop-blur-sm sm:p-6;
+  }
+
+  .metric-card {
+    @apply rounded-2xl border border-gray-200 bg-white/92 p-4 shadow-sm backdrop-blur-sm transition-transform duration-200 hover:-translate-y-0.5;
+  }
+
+  .metric-label {
+    @apply text-base font-medium text-gray-500;
+  }
+
+  .metric-value {
+    @apply mt-3 text-[1.9rem] font-bold tracking-tight text-red-900 sm:text-[2.1rem];
+  }
+
+  .control-label {
+    @apply block space-y-1.5;
+  }
+
+  .control-text {
+    @apply text-base font-medium text-gray-700;
+  }
+
+  .admin-input {
+    @apply w-full rounded-xl border border-gray-200 bg-white px-3 py-3 text-base text-gray-900 shadow-sm outline-none transition focus:border-red-300 focus:ring-4 focus:ring-red-100;
+  }
+
+  .admin-textarea {
+    @apply min-h-40 w-full rounded-xl border border-gray-200 bg-white px-3 py-3 text-base text-gray-900 shadow-sm outline-none transition focus:border-red-300 focus:ring-4 focus:ring-red-100;
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl bg-red-700 px-4 py-3 text-base font-medium text-white transition hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-100 disabled:cursor-not-allowed disabled:opacity-70;
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl border border-gray-200 bg-white px-4 py-3 text-base font-medium text-gray-700 transition hover:bg-gray-50 focus:outline-none focus:ring-4 focus:ring-gray-100 disabled:cursor-not-allowed disabled:opacity-70;
+  }
+
+  .btn-success {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl bg-green-500 px-4 py-3 text-base font-medium text-white transition hover:bg-green-700 focus:outline-none focus:ring-4 focus:ring-green-100 disabled:cursor-not-allowed disabled:opacity-70;
+  }
+
+  .btn-info {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl bg-green-600 px-4 py-3 text-base font-medium text-white transition hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-100 disabled:cursor-not-allowed disabled:opacity-70;
+  }
+
+  .btn-danger {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-base font-medium text-red-700 transition hover:bg-red-100 focus:outline-none focus:ring-4 focus:ring-red-100 disabled:cursor-not-allowed disabled:opacity-70;
+  }
+
+  .table-card {
+    @apply overflow-hidden rounded-2xl border border-gray-200 bg-white/92 shadow-sm backdrop-blur-sm;
+  }
+
+  .table-scroll {
+    @apply overflow-x-auto;
+  }
+
+  .table-base {
+    @apply min-w-full text-left text-base text-gray-700;
+  }
+
+  .table-head {
+    @apply bg-red-50 text-red-900;
+  }
+
+  .table-row {
+    @apply border-t border-gray-100 hover:bg-gray-50/70;
+  }
+
+  .pill {
+    @apply inline-flex items-center rounded-full px-3 py-1.5 text-sm font-medium;
+  }
+
+  .pill-neutral {
+    @apply bg-gray-100 text-gray-700;
+  }
+
+  .pill-success {
+    @apply bg-green-100 text-green-700;
+  }
+
+  .pill-warning {
+    @apply bg-amber-100 text-amber-700;
+  }
+
+  .pill-danger {
+    @apply bg-red-100 text-red-700;
+  }
+}

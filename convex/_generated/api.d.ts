@@ -9,7 +9,9 @@
  */
 
 import type * as attendance from "../attendance.js";
+import type * as crons from "../crons.js";
 import type * as services from "../services.js";
+import type * as tasks from "../tasks.js";
 import type * as users from "../users.js";
 
 import type {
@@ -20,7 +22,9 @@ import type {
 
 declare const fullApi: ApiFromModules<{
   attendance: typeof attendance;
+  crons: typeof crons;
   services: typeof services;
+  tasks: typeof tasks;
   users: typeof users;
 }>;
 

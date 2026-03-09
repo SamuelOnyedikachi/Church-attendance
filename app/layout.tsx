@@ -20,9 +20,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${inter.className} flex flex-col min-h-screen`} suppressHydrationWarning>
+      <body className={`${inter.className} relative isolate flex min-h-screen flex-col text-gray-950`} suppressHydrationWarning>
         <div
-          className="absolute inset-0 opacity-4 -z-30 bg-cover bg-center"
+          className="pointer-events-none fixed inset-0 -z-10 bg-cover bg-center opacity-5"
           style={{ backgroundImage: "url('/church-bg.png')" }}
         />
 
