@@ -84,19 +84,7 @@ export default function AttendancePage() {
           <table className="table-base">
             <thead className="table-head">
               <tr>
-                <th className="px-4 py-3">Name</th>
-                <th className="px-4 py-3">Category</th>
-                <th className="px-4 py-3">Email</th>
-                <th className="px-4 py-3">Phone</th>
-                <th className="px-4 py-3">Address</th>
-                <th className="px-4 py-3">Occupation</th>
-                <th className="px-4 py-3">Department in Church</th>
-                <th className="px-4 py-3">MArital Status</th>
-                <th className="px-4 py-3">First Timer</th>
-                <th className="px-4 py-3">Second Timer</th>
-                <th className="px-4 py-3">Date of Birth</th>
-                <th className="px-4 py-3">Prayer Request</th>
-                <th className="px-4 py-3">Time</th>
+cc
               </tr>
             </thead>
             <tbody>

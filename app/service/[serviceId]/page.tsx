@@ -73,6 +73,8 @@ export default function ServicePage() {
       await addAttendance({
         ...formData,
         firstTimer: formData.firstTimer as 'Yes' | 'No',
+        secondTimer: formData.secondTimer as 'Yes' | 'No',
+        status: formData.status as 'Single' | 'Married',
         category: formData.category as 'male' | 'female' | 'kids',
         serviceId,
       });
