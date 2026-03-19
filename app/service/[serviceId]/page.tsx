@@ -23,7 +23,13 @@ export default function ServicePage() {
     category: '',
     email: '',
     phone: '',
+    address:'',
+    occupation:'',
+    department:'',
+    status:'',
     firstTimer: '',
+    secondTimer:'',
+    dob:'',
     prayerRequest: '',
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -86,7 +92,13 @@ export default function ServicePage() {
       category: '',
       email: '',
       phone: '',
+      address:'',
+      occupation:'',
+      department:'',
+      status:'',
       firstTimer: '',
+      secondTimer:'',
+      dob:'',
       prayerRequest: '',
     });
   };
@@ -131,16 +143,37 @@ export default function ServicePage() {
     <main className="flex min-h-screen items-center justify-center px-4 py-10 sm:px-6">
       <div className="w-full max-w-2xl overflow-hidden rounded-[28px] border border-red-100 bg-white shadow-xl">
         <div className="bg-red-900 px-6 py-10 text-center sm:px-10">
-          <Link href="/" className="inline-block text-red-100 transition hover:text-white">
-            <Image src={Logo} width={72} height={72} alt="Church Logo" className="mx-auto mb-5 rounded-full" />
+          <Link
+            href="/"
+            className="inline-block text-red-100 transition hover:text-white"
+          >
+            <Image
+              src={Logo}
+              width={72}
+              height={72}
+              alt="Church Logo"
+              className="mx-auto mb-5 rounded-full"
+            />
           </Link>
-          <p className="text-xs font-semibold uppercase tracking-[0.3em] text-red-200">Service Check-in</p>
-          <h1 className="mt-3 text-3xl font-bold text-white">{service.title}</h1>
-          <p className="mt-2 text-sm text-red-100">{new Date(service.date).toDateString()}</p>
-          <p className="mt-4 text-base text-gray-100">Welcome! Please fill in your details below.</p>
+          <p className="text-xs font-semibold uppercase tracking-[0.3em] text-red-200">
+            Service Check-in
+          </p>
+          <h1 className="mt-3 text-3xl font-bold text-white">
+            {service.title}
+          </h1>
+          <p className="mt-2 text-sm text-red-100">
+            {new Date(service.date).toDateString()}
+          </p>
+          <p className="mt-4 text-base text-gray-100">
+            Welcome! Please fill in your details below.
+          </p>
           {timeLeft != null && (
-            <p className={`mt-4 inline-flex rounded-full px-3 py-1 text-sm font-semibold ${isExpired ? 'bg-red-800 text-red-100' : 'bg-green-100 text-green-700'}`}>
-              {isExpired ? 'Check-in Closed' : `Form closes in ${hours}h ${minutes}m ${seconds}s`}
+            <p
+              className={`mt-4 inline-flex rounded-full px-3 py-1 text-sm font-semibold ${isExpired ? 'bg-red-800 text-red-100' : 'bg-green-100 text-green-700'}`}
+            >
+              {isExpired
+                ? 'Check-in Closed'
+                : `Form closes in ${hours}h ${minutes}m ${seconds}s`}
             </p>
           )}
         </div>
@@ -152,9 +185,53 @@ export default function ServicePage() {
               type="text"
               required
               value={formData.name}
-              onChange={(event) => setFormData({ ...formData, name: event.target.value })}
+              onChange={(event) =>
+                setFormData({ ...formData, name: event.target.value })
+              }
               className="admin-input"
               placeholder="John Doe"
+            />
+          </label>
+
+          <div className="grid gap-5 sm:grid-cols-2">
+            <label className="control-label">
+              <span className="control-text">Email</span>
+              <input
+                type="email"
+                value={formData.email}
+                onChange={(event) =>
+                  setFormData({ ...formData, email: event.target.value })
+                }
+                className="admin-input"
+                placeholder="john@example.com"
+              />
+            </label>
+
+            <label className="control-label">
+              <span className="control-text">Phone</span>
+              <input
+                type="tel"
+                value={formData.phone}
+                onChange={(event) =>
+                  setFormData({ ...formData, phone: event.target.value })
+                }
+                className="admin-input"
+                placeholder="+1 234 567 8900"
+              />
+            </label>
+          </div>
+
+          <label className="control-label">
+            <span className="control-text">Address</span>
+            <input
+              type="text"
+              required
+              value={formData.address}
+              onChange={(event) =>
+                setFormData({ ...formData, address: event.target.value })
+              }
+              className="admin-input"
+              placeholder="1, Avalon Street, LA, USA"
             />
           </label>
 
@@ -167,7 +244,11 @@ export default function ServicePage() {
                 onChange={(event) =>
                   setFormData({
                     ...formData,
-                    category: event.target.value as 'male' | 'female' | 'kids' | '',
+                    category: event.target.value as
+                      | 'male'
+                      | 'female'
+                      | 'kids'
+                      | '',
                   })
                 }
                 className="admin-input"
@@ -201,39 +282,102 @@ export default function ServicePage() {
 
           <div className="grid gap-5 sm:grid-cols-2">
             <label className="control-label">
-              <span className="control-text">Email</span>
-              <input
-                type="email"
-                value={formData.email}
-                onChange={(event) => setFormData({ ...formData, email: event.target.value })}
+              <span className="control-text">Second time in church?</span>
+              <select
+                required
+                value={formData.secondTimer}
+                onChange={(event) =>
+                  setFormData({
+                    ...formData,
+                    secondTimer: event.target.value as 'Yes' | 'No' | '',
+                  })
+                }
                 className="admin-input"
-                placeholder="john@example.com"
-              />
+              >
+                <option value="">Select an option</option>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+              </select>
             </label>
 
             <label className="control-label">
-              <span className="control-text">Phone</span>
-              <input
-                type="tel"
-                value={formData.phone}
-                onChange={(event) => setFormData({ ...formData, phone: event.target.value })}
+              <span className="control-text">Marital Status</span>
+              <select
+                required
+                value={formData.status}
+                onChange={(event) =>
+                  setFormData({
+                    ...formData,
+                    status: event.target.value as 'Single' | 'Married' | '',
+                  })
+                }
                 className="admin-input"
-                placeholder="+1 234 567 8900"
-              />
+              >
+                <option value="">Select an option</option>
+                <option value="Single">Single</option>
+                <option value="Married">Married</option>
+              </select>
             </label>
           </div>
+
+          <label className="control-label">
+            <span className="control-text">Occupation</span>
+            <input
+              type="text"
+              required
+              value={formData.occupation}
+              onChange={(event) =>
+                setFormData({ ...formData, occupation: event.target.value })
+              }
+              className="admin-input"
+              placeholder="What's your Occupation"
+            />
+          </label>
+
+          <label className="control-label">
+            <span className="control-text">Department in Church</span>
+            <input
+              type="text"
+              required
+              value={formData.department}
+              onChange={(event) =>
+                setFormData({ ...formData, department: event.target.value })
+              }
+              className="admin-input"
+              placeholder="What Department are you in Church?"
+            />
+          </label>
+
+          <label className="control-label">
+            <span className="control-text">Date of Birth</span>
+            <input
+              type="date"
+              required
+              value={formData.dob}
+              onChange={(event) =>
+                setFormData({ ...formData, dob: event.target.value })
+              }
+              className="admin-input"
+            />
+          </label>
 
           <label className="control-label">
             <span className="control-text">Prayer Request</span>
             <textarea
               value={formData.prayerRequest}
-              onChange={(event) => setFormData({ ...formData, prayerRequest: event.target.value })}
+              onChange={(event) =>
+                setFormData({ ...formData, prayerRequest: event.target.value })
+              }
               className="admin-textarea min-h-28"
               placeholder="What do you want God to do for you?"
             />
           </label>
 
-          <button type="submit" disabled={isSubmitting || isExpired} className="btn-primary w-full py-3">
+          <button
+            type="submit"
+            disabled={isSubmitting || isExpired}
+            className="btn-primary w-full py-3"
+          >
             {isSubmitting ? 'Submitting...' : 'Submit Attendance'}
           </button>
         </form>

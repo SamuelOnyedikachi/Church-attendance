@@ -30,6 +30,12 @@ export default defineSchema({
       v.union(v.literal('male'), v.literal('female'), v.literal('kids'))
     ),
     firstTimer: v.optional(v.union(v.literal('Yes'), v.literal('No'))),
+    secondTimer: v.optional(v.union(v.literal('Yes'), v.literal('No'))),
+    address: v.optional(v.string()),
+    occupation: v.optional(v.string()),
+    department: v.optional(v.string()),
+    status: v.optional(v.union(v.literal('Single'), v.literal('Married'))),
+    dob: v.optional(v.string()),
     // (replaced legacy `gender` with `category`)
     email: v.optional(v.string()),
     phone: v.optional(v.string()),
