@@ -5,6 +5,7 @@ import { useMutation, useQuery } from 'convex/react';
 import { toast } from 'react-toastify';
 import { api } from '../../../../convex/_generated/api';
 import type { Doc, Id } from '../../../../convex/_generated/dataModel';
+import { buildWhatsAppHref } from '../../../../lib/whatsapp';
 
 type TaskStatus = Doc<'taskAssignments'>['status'];
 
@@ -127,9 +128,7 @@ export default function UserTasksPage() {
 
       <div className="space-y-4 md:hidden">
         {tasks?.map((task) => {
-          const whatsappLink = task.attendee?.phone
-            ? `https://wa.me/${task.attendee.phone.replace(/[^\d]/g, '')}`
-            : null;
+          const whatsappLink = buildWhatsAppHref(task.attendee?.phone);
           const emailLink = task.attendee?.email
             ? `mailto:${task.attendee.email}`
             : null;
@@ -250,9 +249,7 @@ export default function UserTasksPage() {
             </thead>
             <tbody>
               {tasks?.map((task) => {
-                const whatsappLink = task.attendee?.phone
-                  ? `https://wa.me/${task.attendee.phone.replace(/[^\d]/g, '')}`
-                  : null;
+                const whatsappLink = buildWhatsAppHref(task.attendee?.phone);
                 const emailLink = task.attendee?.email
                   ? `mailto:${task.attendee.email}`
                   : null;

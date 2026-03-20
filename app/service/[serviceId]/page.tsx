@@ -93,7 +93,7 @@ export default function ServicePage() {
       name: '',
       category: '',
       email: '',
-      phone: '',
+      phone: '+234',
       address:'',
       occupation:'',
       department:'',
@@ -218,7 +218,7 @@ export default function ServicePage() {
                   setFormData({ ...formData, phone: event.target.value })
                 }
                 className="admin-input"
-                placeholder="+1 234 567 8900"
+                placeholder="+234 567 8900"
               />
             </label>
           </div>
