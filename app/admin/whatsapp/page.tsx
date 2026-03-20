@@ -312,12 +312,12 @@ export default function WhatsappAttendeesPage() {
           <p className="mt-3 whitespace-pre-wrap rounded-xl bg-gray-50 p-4 text-gray-800">
             {previewMessage}
           </p>
-          <p className="mt-3 text-sm text-gray-600">
+          {/* <p className="mt-3 text-sm text-gray-600">
             Tokens: <code>{'{{name}}'}</code>, <code>{'{{firstName}}'}</code>{' '}
             <code>{'{{serviceTitle}}'}</code>, <code>{'{{serviceDate}}'}</code>,{' '}
             <code>{'{{churchName}}'}</code>, <code>{'{{phone}}'}</code>,{' '}
             <code>{'{{birthdayDate}}'}</code>
-          </p>
+          </p> */}
         </article>
       </div>
 
