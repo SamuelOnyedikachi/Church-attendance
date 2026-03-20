@@ -37,15 +37,6 @@ function formatDateLabel(value?: string | null) {
   });
 }
 
-function getFirstName(name?: string | null) {
-  const trimmedName = name?.trim() ?? '';
-  if (!trimmedName) {
-    return 'Friend';
-  }
-
-  return trimmedName.split(/\s+/)[0] ?? 'Friend';
-}
-
 export function normalizeWhatsAppPhone(
   phone?: string | null,
   defaultCountryCode = DEFAULT_COUNTRY_CODE
@@ -110,11 +101,12 @@ export function resolveWhatsAppTemplate(
   template: string,
   context: WhatsAppTemplateContext
 ) {
+  const fullName = context.attendeeName?.trim() || 'Friend';
   const tokens: TemplateTokenMap = {
     birthdayDate: formatDateLabel(context.dob) || 'your special day',
     churchName: context.churchName?.trim() || DEFAULT_CHURCH_NAME,
-    firstName: getFirstName(context.attendeeName),
-    name: context.attendeeName?.trim() || 'Friend',
+    firstName: fullName,
+    name: fullName,
     phone: context.phone?.trim() || '',
     serviceDate: formatDateLabel(context.serviceDate) || 'today',
     serviceTitle: context.serviceTitle?.trim() || 'our service',
