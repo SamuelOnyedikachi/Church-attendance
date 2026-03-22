@@ -9,83 +9,108 @@ import {
   normalizeWhatsAppPhone,
   resolveWhatsAppTemplate,
 } from '../../../lib/whatsapp';
-
 const CHURCH_NAME = 'UMUAHIA GOSPEL HUB';
 const CUSTOM_TEMPLATE_ID = 'custom';
+
 const WHATSAPP_TEMPLATES = [
   {
     id: 'appreciation',
     label: 'Service Appreciation',
     description: 'A warm thank-you after a service or event.',
     body:
-      'Hello {{name}}, thank you for worshipping with us at {{churchName}} during {{serviceTitle}} on {{serviceDate}}. We pray the word blesses you all through the week. <br/> We love and celebrate you. <br/><br/>PstManny.',
+      `Hello {{name}}, thank you for worshipping with us at {{churchName}} during {{serviceTitle}} on {{serviceDate}}.\n
+We pray the word blesses you all through the week.\n
+We love and celebrate you.\n\n
+PstManny.`,
   },
   {
     id: 'first-timer',
     label: 'First Timer Welcome',
     description: 'Welcome note for guests visiting for the first time.',
     body:
-      'Hello {{name}}, welcome again to {{churchName}}. It was such a joy having you with us at {{serviceTitle}} on {{serviceDate}}. We would love to stay connected and support you however we can.<br/><br/>PstManny.',
+      `Hello {{name}}, welcome again to {{churchName}}.\n
+It was such a joy having you with us at {{serviceTitle}} on {{serviceDate}}.\n
+We would love to stay connected and support you however we can.\n\n
+PstManny.`,
   },
   {
     id: 'second-timer',
     label: 'Second Timer Follow-up',
     description: 'Encouragement for someone returning after their first visit.',
     body:
-      'Hello {{name}}, thank you for coming back to {{churchName}} for {{serviceTitle}} on {{serviceDate}}. We are glad to see you again and we are praying that you keep growing in grace with us.<br/><br/>PstManny.',
+      `Hello {{name}}, thank you for coming back to {{churchName}} for {{serviceTitle}} on {{serviceDate}}.\n
+We are glad to see you again and we are praying that you keep growing in grace with us.\n\n
+PstManny.`,
   },
   {
     id: 'birthday',
     label: 'Birthday Blessing',
     description: 'Birthday prayer and celebration message.',
     body:
-      'Happy birthday, {{name}}. On {{birthdayDate}}, we celebrate God\'s faithfulness over your life. Everyone at {{churchName}} is praying for fresh joy, strength, and favor for you in this new season.<br/><br/>PstManny.',
+      `Happy birthday, {{name}}.\n
+On {{birthdayDate}}, we celebrate God's faithfulness over your life.\n
+Everyone at {{churchName}} is praying for fresh joy, strength, and favor for you in this new season.\n\n
+PstManny.`,
   },
   {
     id: 'prayer',
     label: 'Prayer Check-in',
     description: 'A caring follow-up for prayer and support.',
     body:
-      'Hello {{name}}, this is {{churchName}} checking in on you after {{serviceTitle}}. We are praying for you and would be glad to stand with you in faith if there is any prayer point you want us to keep before God.<br/><br/>PstManny.',
+      `Hello {{name}}, this is {{churchName}} checking in on you after {{serviceTitle}}.\n
+We are praying for you and would be glad to stand with you in faith if there is any prayer point you want us to keep before God.\n\n
+PstManny.`,
   },
   {
     id: 'sunday-reminder',
     label: 'Sunday Reminder',
     description: 'Invite attendees to the next Sunday gathering.',
     body:
-      'Hello {{name}}, this is a loving reminder from {{churchName}}. We would be happy to welcome you again at our next worship service. We are trusting God to bless you richly as you join us.<br/><br/>PstManny.',
+      `Hello {{name}}, this is a loving reminder from {{churchName}}.\n
+We would be happy to welcome you again at our next worship service.\n
+We are trusting God to bless you richly as you join us.\n\n
+PstManny.`,
   },
   {
     id: 'midweek',
     label: 'Midweek Recharge',
     description: 'Invitation to a midweek fellowship or Bible study.',
     body:
-      'Hello {{name}}, thank you for worshipping with us at {{churchName}} during Midweek service on {{serviceDate}}. We pray the word blesses you all through the week. <br/><br/> We cannot wait to have you around for service this Sunday as Pastor Manny will be Teaching on <strong>ANOINTING FOR ABUNDANCE.</strong> <br/> Ensure not to miss service anfd bring someone along. <br/><br/> We celebrate you. <br/><br/> PstManny.',
+      `Hello {{name}}, thank you for worshipping with us at {{churchName}} during Midweek service on {{serviceDate}}.\n\n
+We pray the word blesses you all through the week.\n\n
+We cannot wait to have you around for service this Sunday as Pastor Manny will be teaching on ANOINTING FOR ABUNDANCE.\n
+Ensure not to miss service and bring someone along.\n\n
+We celebrate you.\n\n
+PstManny.`,
   },
   {
     id: 'special-event',
     label: 'Special Event Invite',
     description: 'Invitation to a special church program.',
     body:
-      'Hello {{name}}, you are specially invited to our upcoming program at {{churchName}}. We believe it will be a powerful time in God\'s presence, and we would be honored to have you with us.<br/><br/>PstManny.',
+      `Hello {{name}}, you are specially invited to our upcoming program at {{churchName}}.\n
+We believe it will be a powerful time in God's presence, and we would be honored to have you with us.\n\n
+PstManny.`,
   },
   {
     id: 'volunteer-appreciation',
     label: 'Volunteer Appreciation',
     description: 'A thank-you note for members who served.',
     body:
-      'Hello {{name}}, thank you for serving so faithfully at {{churchName}}. Your support during {{serviceTitle}} on {{serviceDate}} made a real difference, and we appreciate your heart for God\'s work.<br/><br/>PstManny.',
+      `Hello {{name}}, thank you for serving so faithfully at {{churchName}}.\n
+Your support during {{serviceTitle}} on {{serviceDate}} made a real difference, and we appreciate your heart for God's work.\n\n
+PstManny.`,
   },
   {
     id: 'seasonal',
     label: 'Seasonal Greeting',
     description: 'A festive or holiday encouragement note.',
     body:
-      'Hello {{name}}, warm greetings from {{churchName}}. We are grateful for you and we pray that this season brings peace, joy, open doors, and a deeper walk with God for you and your family.<br/><br/>PstManny.',
+      `Hello {{name}}, warm greetings from {{churchName}}.\n
+We are grateful for you and we pray that this season brings peace, joy, open doors, and a deeper walk with God for you and your family.\n\n
+PstManny.`,
   },
-] as const;
-
-// const CHURCH_NAME = 'Rhythmn 5 Fellowship';
+] as const;// const CHURCH_NAME = 'Rhythmn 5 Fellowship';
 // const CUSTOM_TEMPLATE_ID = 'custom';
 // const WHATSAPP_TEMPLATES = [
 //   {
